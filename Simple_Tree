@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <memory.h>
+
+// 이진 트리의 노드를 나타내는 구조체
+typedef struct Tree {
+    int d;            // 노드의 데이터
+    struct Tree *l;   // 왼쪽 자식 노드
+    struct Tree *r;   // 오른쪽 자식 노드
+} Tree;
+
+// 중위 순회를 수행하는 함수
+void Trav(Tree* r) {
+    if (r != NULL) {
+        Trav(r->l);        // 왼쪽 서브트리 순회
+        printf("%d ", r->d);  // 현재 노드의 데이터 출력
+        Trav(r->r);        // 오른쪽 서브트리 순회
+    }
+}
+
+int main() {
+    // 트리의 노드들을 동적으로 할당
+    Tree *n1, *n2, *n3;
+    n1 = (Tree*)malloc(sizeof(Tree));
+    n2 = (Tree*)malloc(sizeof(Tree));
+    n3 = (Tree*)malloc(sizeof(Tree));
+
+    // 각 노드의 데이터와 자식 노드 설정
+    n1->l = n2; n1->d = 10; n1->r = n3;
+    n2->l = NULL; n2->d = 5; n2->r = NULL;
+    n3->l = NULL; n3->d = 30; n3->r = NULL;
+
+    // 중위 순회 수행
+    Trav(n1);
+
+    // 동적으로 할당한 메모리 해제
+    free(n1);
+    free(n2);
+    free(n3);
+
+    return 0;
+}
+
+
+이진트리를 구현하고 중위순회를 수행하는 간단한 예제이다.
+중위순회 : 이진트리에서 노드를 순회하는 방법 중 하나이다.
+          왼쪽 서브트리를 먼저 방문하고 그 다음 현재 노드를 방문한 후에 오른쪽 서브트리를 방문한다.
+          이 과정을 재귀적으로 수행하면, 전체 트리를 중위 순회하는 것이 가능하다.
+
+   10
+  /  \
+ 5   30
+
+5 -> 10 -> 30
+
+          중위순회는 주로 정렬된 데이터를 생성하거나, 이진트리에서 노드를 찾거나 순서대로 출력할 때 사용된다.
